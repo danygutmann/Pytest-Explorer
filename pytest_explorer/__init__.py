@@ -1,0 +1,1 @@
+"""Pytest Explorer application."""
