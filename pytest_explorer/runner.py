@@ -71,7 +71,7 @@ class RunManager:
         lock = self._locks.setdefault(project.id, asyncio.Lock())
         async with lock:
             active_id = self.active_by_project.get(project.id)
-            if active_id and self.runs[active_id].status == "running":
+            if active_id and self.runs[active_id].status in {"running", "stopping"}:
                 raise RuntimeError("A test run is already active for this project.")
             if not selectors:
                 raise ValueError("Select at least one test before starting a run.")
@@ -134,7 +134,8 @@ class RunManager:
             self.history.insert(0, self._history_entry(run))
             self.history = self.history[:100]
             self._save_history()
-            self.active_by_project.pop(project.id, None)
+            if self.active_by_project.get(project.id) == run.id:
+                self.active_by_project.pop(project.id, None)
 
     @staticmethod
     def _update_progress(run: Run, line: str) -> None:

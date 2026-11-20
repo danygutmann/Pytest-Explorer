@@ -65,17 +65,17 @@ def create_app() -> None:
         configuration_error = ""
     manager = RunManager(DATA_DIR)
     app.add_static_files("/runs", str(manager.runs_dir))
-    ui.add_head_html(
-        '<meta name="viewport" content="width=device-width, initial-scale=1">'
-    )
-    ui.add_css(
-        "body { background: #f5f7fa; } "
-        ".q-card { border-radius: 12px; } "
-        ".run-output textarea { font-family: monospace; }"
-    )
 
     @ui.page("/")
     def index() -> None:
+        ui.add_head_html(
+            '<meta name="viewport" content="width=device-width, initial-scale=1">'
+        )
+        ui.add_css(
+            "body { background: #f5f7fa; } "
+            ".q-card { border-radius: 12px; } "
+            ".run-output textarea { font-family: monospace; }"
+        )
         selected: set[str] = set()
         discovered: list[str] = []
         current_run: Run | None = None
