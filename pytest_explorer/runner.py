@@ -120,7 +120,7 @@ class RunManager:
                     log.flush()
                     self._update_progress(run, text.rstrip())
                 run.returncode = await run.process.wait()
-            if run.status != "stopping":
+            if run.status not in {"stopping", "stopped"}:
                 run.status = "passed" if run.returncode == 0 else "failed"
         except Exception as exc:
             run.status = "failed"

@@ -1,0 +1,10 @@
+{
+  "projects": [
+    {
+      "id": "ngcp",
+      "name": "NGCP Smoke Tests",
+      "path": "/opt/pytest-projects/ngcp",
+      "python": "/home/pi/ctc_ta_vtc_ngcp_coretura_smoke_test/venv_hil/bin/python"
+    }
+  ]
+}
